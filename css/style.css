@@ -1,0 +1,32 @@
+body {
+    color: #fff;
+    font-family:Monospace;
+    font-size:13px;
+    font-weight: bold;
+    background-color: #000;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+#info {
+    font-size: 150%;
+    color: skyblue;
+    position: fixed;
+    float: inherit;
+    top: 0px;
+    width: 70%;
+    text-align: center;
+    z-index: 100;
+}
+a { color: mediumpurple; }
+#stats-output { position: absolute; top:0; left: 0;}
+#loading {
+    background: orange;
+    color: white;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    font-size: 170%;
+    display: block;
+    z-index: 200;
+}
