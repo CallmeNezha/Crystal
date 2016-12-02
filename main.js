@@ -1,3 +1,10 @@
+//              ______    _____            _________       _____   _____
+//            /     /_  /    /            \___    /      /    /__/    /
+//           /        \/    /    ___        /    /      /            /    ___
+//          /     / \      /    /\__\      /    /___   /    ___     /    /   \
+//        _/____ /   \___ /    _\___     _/_______ / _/___ / _/___ /    _\___/\_
+//        revised on 2/12/2016  All rights reserved by @NeZha
+
 'use strict'
 
 const electron = require('electron')
@@ -25,7 +32,7 @@ function createWindow () {
   }))
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {

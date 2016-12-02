@@ -1,13 +1,16 @@
-// This file is required by the index.html file and will
-// be executed in the renderer process for that window.
-// All of the Node.js APIs are available in this process.
+//              ______    _____            _________       _____   _____
+//            /     /_  /    /            \___    /      /    /__/    /
+//           /        \/    /    ___        /    /      /            /    ___
+//          /     / \      /    /\__\      /    /___   /    ___     /    /   \
+//        _/____ /   \___ /    _\___     _/_______ / _/___ / _/___ /    _\___/\_
+//        revised on 2/12/2016  All rights reserved by @NeZha
 
 'use strict'
 
-const THREE = require( './third-party/three/three.js' )
-const Stats = require( './third-party/three/libs/js/libs/stats.min.js' )
+const THREE = require( './third-party/three/build/three.js' )
+const Stats = require( './third-party/three/examples/js/libs/stats.min.js' )
 
-let Loading = require( './example/loading.js' )
+let Loading = require( './example/kinect.js' )
 let example = new Loading()
 let renderer, stats
 
@@ -17,10 +20,11 @@ animate();
 
 function init() {
 
-    renderer = new THREE.WebGLRenderer();
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer = new THREE.WebGLRenderer()
+    renderer.setPixelRatio( window.devicePixelRatio )
+    renderer.setSize( window.innerWidth, window.innerHeight )
 
-    document.getElementById( 'webgl-output' ).appendChild( renderer.domElement );
+    document.getElementById( 'webgl-output' ).appendChild( renderer.domElement )
 
     // Stats initialzation
     stats = new Stats()
@@ -59,47 +63,34 @@ function onWindowResize() {
 
 
 // Console script
-var cnsl = new Console({}, {
-    hotkey: 192, // <kbd>ESC</kbd> ('~' for default)
-    welcome: 'Welcome back, Master.Nezha.',
-    caseSensitive: true,
-    defaultHandler: function(){},
-    onShow: function(){},
-    onHide: function(){},
-})
+var cnsl = new Console( {}, {
+    hotkey: 192 // <kbd>ESC</kbd> ('~' for default)
+    , welcome: 'Welcome back, Master.Nezha.'
+    , caseSensitive: true
+    , defaultHandler: function() {}
+    , onShow: function() {}
+    , onHide: function() {}
+} )
 
-cnsl.register('showall',function(name){
-    playerName = name;
-    return '' + playerName + ' now.';
-}, {
-    usage: 'SHOWALL &lt;name&gt; || SHOW -a &lt;name&gt;',
-    desc: 'Show all geometry name on console.'
-}).register('selfdestroy',function(name){
-    playerName = name;
-    return '' + playerName + ' now.';
-}, {
-    usage: 'SELFDESTROY',
-    desc: 'Destroy geometry name on console.'
-}).register('help', function () {
-    var cmds = cnsl.commands;
-    for (var name in cmds) {
-        if (cmds.hasOwnProperty(name)) {
-        cmds[name].desc && cnsl.log(' -', cmds[name].usage + ':', cmds[name].desc);
-        }
+cnsl.register( 'help', function () {
+    let cmds = cnsl.commands
+    for ( let name in cmds ) {
+        if ( cmds.hasOwnProperty( name ) ) 
+            cmds[ name ].desc && cnsl.log( ' -', cmds[name].usage + ':', cmds[name].desc )
     }
-},{
-    usage: 'HELP',
-    desc: 'Show help messages.'
-}).register('command', function (command) {
-    eval(command)
-} , {
-    usage: 'COMMAND &lt;command&gt;',
-    desc: 'Execute javascript interactively.'
-}).register( 'clear', function() {
+}, {
+    usage: 'HELP'
+    , desc: 'Show help messages.'
+} ).register( 'command', function ( command ) {
+    eval( command )
+}, {
+    usage: `COMMAND <command>`
+    , desc: 'Execute javascript interactively.'
+} ).register( 'clear', function() {
     example = new Loading()
     example.init()
     console.log( 'clear success' )
 }, {
-    usage: 'CLEAR',
-    desc: 'Clear current scene and pop back to defualt.'
+    usage: 'CLEAR'
+    , desc: 'Clear current scene and pop back to defualt.'
 } )

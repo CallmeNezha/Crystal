@@ -1,6 +1,12 @@
+//              ______    _____            _________       _____   _____
+//            /     /_  /    /            \___    /      /    /__/    /
+//           /        \/    /    ___        /    /      /            /    ___
+//          /     / \      /    /\__\      /    /___   /    ___     /    /   \
+//        _/____ /   \___ /    _\___     _/_______ / _/___ / _/___ /    _\___/\_
+//        revised on 2/12/2016  All rights reserved by @NeZha
 'use strict'
 
-const THREE = require( '../third-party/three/three.js' )
+const THREE = require( '../third-party/three/build/three.js' )
 
 class Loading {
     constructor() { 
@@ -28,5 +34,7 @@ class Loading {
 
 }
 
-module.exports = Loading
 
+if ( typeof module === 'object' ) {
+    module.exports = Loading
+}
