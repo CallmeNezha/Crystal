@@ -10,8 +10,7 @@
 const THREE = require( './third-party/three/build/three.js' )
 const Stats = require( './third-party/three/examples/js/libs/stats.min.js' )
 
-let Loading = require( './example/kinect.js' )
-let example = new Loading()
+let example
 let renderer, stats
 
 
@@ -20,22 +19,32 @@ animate();
 
 function init() {
 
-    renderer = new THREE.WebGLRenderer()
-    renderer.setPixelRatio( window.devicePixelRatio )
-    renderer.setSize( window.innerWidth, window.innerHeight )
-
-    document.getElementById( 'webgl-output' ).appendChild( renderer.domElement )
+    setNewRenderer()
 
     // Stats initialzation
     stats = new Stats()
-    document.getElementById( 'stats-output' ).appendChild( stats.dom )
+    let node = document.getElementById( 'stats-output' )
+    while ( node.firstChild ) node.removeChild(node.firstChild)
+    node.appendChild( stats.dom )
 
     // Window event listeners
     window.addEventListener( 'resize', onWindowResize, false )
 
+    let Loading = require( './example/loading.js' )
     example = new Loading()
-    example.init()
+    example.init( renderer )
     document.getElementById( 'loading' ).style.display = 'none'
+}
+
+function setNewRenderer() {
+    // Open antialias cause a significant reduction in performance
+    renderer = new THREE.WebGLRenderer( { antialias: false } )  
+    renderer.setPixelRatio( window.devicePixelRatio )
+    renderer.setSize( window.innerWidth, window.innerHeight )
+
+    let node = document.getElementById( 'webgl-output' )
+    while ( node.firstChild ) node.removeChild(node.firstChild)
+    node.appendChild( renderer.domElement )
 }
 
 
@@ -84,13 +93,24 @@ cnsl.register( 'help', function () {
 } ).register( 'command', function ( command ) {
     eval( command )
 }, {
-    usage: `COMMAND <command>`
+    usage: 'COMMAND &lt;command&gt;'
     , desc: 'Execute javascript interactively.'
 } ).register( 'clear', function() {
-    example = new Loading()
-    example.init()
+    init()
     console.log( 'clear success' )
 }, {
     usage: 'CLEAR'
     , desc: 'Clear current scene and pop back to defualt.'
+} ).register( 'load', function( name ) {
+
+    document.getElementById( 'loading' ).style.display = 'block'
+    setNewRenderer()
+    let Foo = require( `./example/${name}.js` )
+    example = new Foo()
+    example.init( renderer )
+    document.getElementById( 'loading' ).style.display = 'none'
+
+}, {
+    usage: `LOAD &lt;example&gt;`
+    , desc: 'Load example file under Crystal/example directory'
 } )
