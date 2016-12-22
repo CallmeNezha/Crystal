@@ -44,6 +44,7 @@ function init() {
     }
     if ( !configlast ) configlast = require( './example/loading.js' )
     example = new configlast()
+    console.log( example )
     example.init( renderer )
     
     
@@ -57,7 +58,7 @@ function setNewRenderer() {
     renderer.setSize( window.innerWidth, window.innerHeight )
 
     let node = document.getElementById( 'webgl-output' )
-    while ( node.firstChild ) node.removeChild(node.firstChild)
+    while ( node.firstChild ) node.removeChild( node.firstChild )
     node.appendChild( renderer.domElement )
 }
 
