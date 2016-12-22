@@ -26,6 +26,8 @@ class ToonShaderExample {
         this.objects = {}
     }
 
+    
+
     init( renderer ) {
 
         // Orbit controls
@@ -33,7 +35,7 @@ class ToonShaderExample {
         controls = new THREE.OrbitControls( this.camera, renderer.domElement )
         controls.enableZoom = true
 
-        this.scene.fog = new THREE.Fog( 0x72645b, 2, 15 );
+        this.scene.fog = new THREE.Fog( 0x72645b, 2, 150 );
         renderer.setClearColor( this.scene.fog.color );
 
         renderer.gammaInput = true
@@ -176,7 +178,8 @@ class ToonShaderExample {
 
 }
 
-
 if ( typeof module === 'object' ) {
+
     module.exports = ToonShaderExample
+    
 }

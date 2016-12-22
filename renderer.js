@@ -9,6 +9,7 @@
 
 const THREE = require( './third-party/three/build/three.js' )
 const Stats = require( './third-party/three/examples/js/libs/stats.min.js' )
+const fs = require('fs')
 
 let example
 let renderer, stats
@@ -30,9 +31,22 @@ function init() {
     // Window event listeners
     window.addEventListener( 'resize', onWindowResize, false )
 
-    let Loading = require( './example/loading.js' )
-    example = new Loading()
+    let configlast = undefined
+    if ( fs.existsSync( './config.json' ) ) {
+
+        let config = require( './config.json' )
+        if ( config[ "last-open" ] ) {
+
+            configlast= require( `./example/${config[ "last-open" ]}.js` )
+
+        }
+
+    }
+    if ( !configlast ) configlast = require( './example/loading.js' )
+    example = new configlast()
     example.init( renderer )
+    
+    
     document.getElementById( 'loading' ).style.display = 'none'
 }
 
@@ -103,6 +117,7 @@ cnsl.register( 'help', function () {
     , desc: 'Clear current scene and pop back to defualt.'
 } ).register( 'load', function( name ) {
 
+    fs.writeFile('config.json', JSON.stringify({"last-open":name}), 'utf8', null);
     document.getElementById( 'loading' ).style.display = 'block'
     setNewRenderer()
     let Foo = require( `./example/${name}.js` )
