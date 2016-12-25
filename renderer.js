@@ -7,9 +7,11 @@
 
 'use strict'
 
-const THREE = require( './third-party/three/build/three.js' )
-const Stats = require( './third-party/three/examples/js/libs/stats.min.js' )
-const fs = require('fs')
+const env = require( './env.js' )
+const fs  = require( 'fs' )
+
+const THREE = require( env.PATH.THREE + 'build/three.js' )
+const Stats = require( env.PATH.THREE + 'examples/js/libs/stats.min.js' )
 
 let example
 let renderer, stats
@@ -20,7 +22,7 @@ animate();
 
 function init() {
 
-    setNewRenderer()
+    _setNewRenderer()
 
     // Stats initialzation
     stats = new Stats()
@@ -31,37 +33,25 @@ function init() {
     // Window event listeners
     window.addEventListener( 'resize', onWindowResize, false )
 
+    // check last opened example
     let configlast = undefined
     if ( fs.existsSync( './config.json' ) ) {
 
         let config = require( './config.json' )
         if ( config[ "last-open" ] ) {
 
-            configlast= require( `./example/${config[ "last-open" ]}.js` )
+            configlast= require( env.PATH.LIB + `examples/${config[ "last-open" ]}.js` )
 
         }
 
     }
-    if ( !configlast ) configlast = require( './example/loading.js' )
+    if ( !configlast ) configlast = require( env.PATH.LIB + 'examples/loading.js' )
     example = new configlast()
     console.log( example )
     example.init( renderer )
-    
-    
-    document.getElementById( 'loading' ).style.display = 'none'
+
+    _toggleLoading( false )
 }
-
-function setNewRenderer() {
-    // Open antialias cause a significant reduction in performance
-    renderer = new THREE.WebGLRenderer( { antialias: false } )  
-    renderer.setPixelRatio( window.devicePixelRatio )
-    renderer.setSize( window.innerWidth, window.innerHeight )
-
-    let node = document.getElementById( 'webgl-output' )
-    while ( node.firstChild ) node.removeChild( node.firstChild )
-    node.appendChild( renderer.domElement )
-}
-
 
 
 function animate() {
@@ -99,7 +89,7 @@ var cnsl = new Console( {}, {
 cnsl.register( 'help', function () {
     let cmds = cnsl.commands
     for ( let name in cmds ) {
-        if ( cmds.hasOwnProperty( name ) ) 
+        if ( cmds.hasOwnProperty( name ) )
             cmds[ name ].desc && cnsl.log( ' -', cmds[name].usage + ':', cmds[name].desc )
     }
 }, {
@@ -118,15 +108,41 @@ cnsl.register( 'help', function () {
     , desc: 'Clear current scene and pop back to defualt.'
 } ).register( 'load', function( name ) {
 
-    fs.writeFile('config.json', JSON.stringify({"last-open":name}), 'utf8', null);
-    document.getElementById( 'loading' ).style.display = 'block'
-    setNewRenderer()
-    let Foo = require( `./example/${name}.js` )
+    fs.writeFile('config.json', JSON.stringify({"last-open": name}), 'utf8', null);
+
+    _toggleLoading( true )
+
+    _setNewRenderer()
+    let Foo = require( env.PATH.LIB + `examples/${name}.js` )
     example = new Foo()
     example.init( renderer )
-    document.getElementById( 'loading' ).style.display = 'none'
+    _toggleLoading( false )
+
 
 }, {
     usage: `LOAD &lt;example&gt;`
     , desc: 'Load example file under Crystal/example directory'
 } )
+
+
+/**
+ * @access protected
+ */
+function _setNewRenderer() {
+    // Open antialias cause a significant reduction in performance
+    renderer = new THREE.WebGLRenderer( { antialias: false } )
+    renderer.setPixelRatio( window.devicePixelRatio )
+    renderer.setSize( window.innerWidth, window.innerHeight )
+
+    let node = document.getElementById( 'webgl-output' )
+    while ( node.firstChild ) node.removeChild( node.firstChild )
+    node.appendChild( renderer.domElement )
+}
+
+/**
+ * @access protected
+ */
+function _toggleLoading( on ) {
+    if( on ) document.getElementById( 'loading' ).style.display = 'block'
+    else document.getElementById( 'loading' ).style.display = 'none'
+}

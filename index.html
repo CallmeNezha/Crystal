@@ -24,9 +24,9 @@
   </body>
 
   <script>
-
+    const env = require('./env.js')
     // Check webgl support
-    const Detector = require('./third-party/three/examples/js/Detector.js')
+    const Detector = require(env.PATH.THREE + 'examples/js/Detector.js')
     if ( !Detector.webgl )
     {
         document.getElementById("loading").style.display = 'none';

@@ -5,7 +5,8 @@
 #        _/____ /   \___ /    _\___     _/_______ / _/___ / _/___ /    _\___/\_
 #        revised on 22/12/2016  All rights reserved by @NeZha
 
-THREE = require( '../third-party/three/build/three.js' )
+env = require( '../../env.js' )
+THREE = require( env.PATH.THREE + 'build/three.js' )
 Function = require( './blueprint/function.js' )
 
 class Blueprint

@@ -4,7 +4,7 @@
   "description": "A 3D Playground",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "coffee -o lib/ -cm src/;electron ."
   },
   "repository": "",
   "keywords": [
@@ -15,6 +15,7 @@
   "license": "MIT",
   "devDependencies": {
     "electron": "^1.4.1",
-    "clone": "^2.1.0"
+    "clone": "^2.1.0",
+    "coffee-script": "^1.12.2"
   }
 }
