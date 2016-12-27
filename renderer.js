@@ -32,6 +32,7 @@ function init() {
 
     // Window event listeners
     window.addEventListener( 'resize', onWindowResize, false )
+    window.addEventListener( 'close', onWindowClose, false )
 
     // check last opened example
     let configlast = undefined
@@ -73,6 +74,11 @@ function onWindowResize() {
     example.camera.aspect = window.innerWidth / window.innerHeight
     example.camera.updateProjectionMatrix()
 
+}
+
+function onWindowClose() {
+    if ( !example ) return
+    if ( example.onExit ) example.onExit()
 }
 
 
