@@ -29,14 +29,34 @@ vertexShader =
 	void main()
 	{
     vUv = vec2(position.x / width, position.y / height);
-    vec4 color = texture2D(map, vUv);
-    vec3 offset = vec3(0.0, 0.0, color.z * 255.0);
-    if (abs(offset.z) < 0.01) offset.z = 260.0;
+    vec2 vUvsround[8];
+
+    vUvsround[0] = vec2(position.x - 1.0, position.y + 1.0);
+    vUvsround[1] = vec2(position.x - 1.0, position.y);
+    vUvsround[2] = vec2(position.x - 1.0, position.y - 1.0);
+    vUvsround[3] = vec2(position.x, position.y - 1.0);
+    vUvsround[4] = vec2(position.x + 1.01, position.y - 1.0);
+    vUvsround[5] = vec2(position.x + 1.0, position.y);
+    vUvsround[6] = vec2(position.x + 1.0, position.y + 1.0);
+    vUvsround[7] = vec2(position.x, position.y + 1.0);
+
+    vec4 center = texture2D(map, vUv);
+
+    float error = 0.0;
+    for(int i=0; i < 8; ++i) {
+      vUvsround[i] = vec2(vUvsround[i].x / width, vUvsround[i].y / height);
+      vec4 color = texture2D(map, vUvsround[i]);
+      error += abs(center.z - color.z);
+    }
+    if (error > 0.1) {
+      center.z = 0.0;
+    }
+    vec3 offset = vec3(0.0, 0.0, center.z * 600.0);
+    if (abs(offset.z) < 0.01) offset.z = 600.0;
 		vec4 mvPosition = modelViewMatrix * vec4( position + offset, 1.0 );
     gl_PointSize = 5.0;
 		gl_Position = projectionMatrix * mvPosition;
 	}
-
   """
 
 fragmentShader =
@@ -156,7 +176,7 @@ class View
     image = @_context.getImageData(0, 0, 512, 424)
     for ipxl in [0...512 * 424 * 4] by 4
         intensity = @_depthframe[ipxl / 4]
-        intensity = if intensity < 1200 then (intensity / 1200) * 255 else 0
+        intensity = if intensity < 1800 then (intensity / 1800) * 255 else 0
         image.data[ipxl    ] = intensity
         image.data[ipxl + 1] = intensity
         image.data[ipxl + 2] = intensity

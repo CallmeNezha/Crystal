@@ -7,7 +7,7 @@
 
 'use strict'
 
-const env = require( './env.js' )
+const env = require( '../env.js' )
 const fs  = require( 'fs' )
 
 const THREE = require( env.PATH.THREE + 'build/three.js' )
@@ -36,9 +36,9 @@ function init() {
 
     // check last opened example
     let configlast = undefined
-    if ( fs.existsSync( './config.json' ) ) {
+    if ( fs.existsSync( env.PATH.CONFIGFILE ) ) {
 
-        let config = require( './config.json' )
+        let config = require( env.PATH.CONFIGFILE )
         if ( config[ "last-open" ] ) {
 
             configlast= require( env.PATH.LIB + `examples/${config[ "last-open" ]}.js` )

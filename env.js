@@ -5,6 +5,10 @@ const LIB =            ROOT + 'lib/'
 const THIRDLIB =       ROOT + 'third-party/'
 const THREE =          THIRDLIB + 'three/'
 const EXAMPLES =       ROOT + 'lib/examples/'
+const PAGES =          ROOT + 'pages/'
+const RENDERERS =      ROOT + 'renderers/'
+
+const CONFIGFILE =     ROOT + 'config.json'
 
 let PATH = {
     ROOT
@@ -13,7 +17,10 @@ let PATH = {
     , THIRDLIB
     , THREE
     , EXAMPLES
-} 
+    , PAGES
+    , RENDERERS
+    , CONFIGFILE
+}
 
 
 module.exports = {

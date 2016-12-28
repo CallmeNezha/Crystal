@@ -12,8 +12,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./third-party/console/console.css">
-    <script src="./third-party/console/console.js"></script>
+    <link rel="stylesheet" href="../third-party/console/console.css">
+    <script src="../third-party/console/console.js"></script>
   </head>
   <body>
     <div id="loading">Loading... please wait...</div>
@@ -24,7 +24,7 @@
   </body>
 
   <script>
-    const env = require('./env.js')
+    const env = require('../env.js')
     // Check webgl support
     const Detector = require(env.PATH.THREE + 'examples/js/Detector.js')
     if ( !Detector.webgl )
@@ -38,7 +38,7 @@
     }
     
     // You can also require other files to run in this process
-    require('./renderer.js')
+    require(env.PATH.RENDERERS + 'playground.js')
 
   </script>
 </html>
