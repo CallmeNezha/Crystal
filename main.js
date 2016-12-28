@@ -25,7 +25,7 @@ function createWindow () {
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
-    pathname: env.PATH.PAGES + 'playground.html',
+    pathname: env.PATH.PAGES + 'tutorial.html',
     protocol: 'file:',
     slashes: true
   }))

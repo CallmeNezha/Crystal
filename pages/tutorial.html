@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--#//              ______    _____            _________       _____   _____-->
+    <!--#//            /     /_  /    /            \___    /      /    /__/    /-->
+    <!--#//           /        \/    /    ___        /    /      /            /    ___-->
+    <!--#//          /     / \      /    /\__\      /    /___   /    ___     /    /   \-->
+    <!--#//        _/____ /   \___ /    _\___     _/_______ / _/___ / _/___ /    _\___/\_-->
+    <!--#//        revised on 28/12/2016  All rights reserved by @NeZha-->
+
+    <title>Crystal - Nezha.com 2016</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../third-party/console/console.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="../third-party/console/console.js"></script>
+  </head>
+  <body>
+    <!--<div id="loading">Loading... please wait...</div>-->
+    <div id="stats-output"></div>
+    <div id="webgl-output"></div>
+    <div class="row" id="tutorial-panel">
+      <div class="col-sm-2">
+        <button id='btn-prev' type="button" class="btn btn-default btn-lg" style="outline: none; border: none; background: #337599; width: 100%; color: ghostwhite">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Prev
+        </button></div>
+      <div class="col-sm-8"><p id="text-step-describe" class="text-center">Center aligned text.</p></div>
+      <div class="col-sm-2">
+        <button id='btn-next' type="button" class="btn btn-default btn-lg" style="outline: none; border: none; background: #337599; width: 100%; color: ghostwhite">
+          Next <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 
+        </button></div>
+      </div>
+    </div>
+
+
+  </body>
+
+  <script>
+    const env = require('../env.js')
+    // Check webgl support
+    const Detector = require(env.PATH.THREE + 'examples/js/Detector.js')
+    if ( !Detector.webgl )
+    {
+        document.getElementById("loading").style.display = 'none';
+        Detector.addGetWebGLMessage();
+        if (window.stop)
+            window.stop();
+        else
+            document.execCommand("Stop");
+    }
+    
+    // You can also require other files to run in this process
+    require(env.PATH.LIB + 'tutorials/basic.js')
+
+  </script>
+</html>

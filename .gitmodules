@@ -1,3 +1,6 @@
 [submodule "third-party/three"]
 	path = third-party/three
 	url = https://github.com/mrdoob/three.js.git
+[submodule "third-party/tweenjs"]
+	path = third-party/tweenjs
+	url = https://github.com/tweenjs/tween.js.git

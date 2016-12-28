@@ -4,6 +4,7 @@ const SOURCE =         ROOT + 'src/'
 const LIB =            ROOT + 'lib/'
 const THIRDLIB =       ROOT + 'third-party/'
 const THREE =          THIRDLIB + 'three/'
+const TWEEN =          THIRDLIB + 'tweenjs/'
 const EXAMPLES =       ROOT + 'lib/examples/'
 const PAGES =          ROOT + 'pages/'
 const RENDERERS =      ROOT + 'renderers/'
@@ -20,6 +21,7 @@ let PATH = {
     , PAGES
     , RENDERERS
     , CONFIGFILE
+    , TWEEN
 }
 
 

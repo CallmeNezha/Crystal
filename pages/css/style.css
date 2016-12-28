@@ -30,3 +30,13 @@ a { color: mediumpurple; }
     display: block;
     z-index: 200;
 }
+
+#tutorial-panel {
+    background: #337599;
+    color: #eeeeee;
+    position: absolute;
+    top: 70%;
+    left: 0;
+    height: 30%;
+    width: 102%;
+}
